@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('company_to_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role',\App\Models\User::ROLES)->default(\App\Models\User::ROLE_USER);
-            $table->rememberToken();
+            $table->unsignedBigInteger("company_id")->index();
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger("category_id")->index();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('company_to_categories');
     }
 };
