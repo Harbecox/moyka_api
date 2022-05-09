@@ -16,10 +16,10 @@ class APIRequest extends FormRequest
     {
         $ex = new ValidationException($validator);
         $errors = $ex->errors();
-        $message = $ex->getMessage();
+//        $message = $ex->getMessage();
 
         throw new HttpResponseException(
-            response()->json(["message" => $message,"errors" => $errors],JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+            response()->json(["data" => [],"errors" => $errors],JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class AuthController extends Controller
 {
@@ -21,8 +22,10 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): \Illuminate\Http\JsonResponse
     {
-        $user = User::create($request->validated());
-        return response()->json($user);
+        User::create($request->validated());
+        $credentials = request(['email', 'password']);
+        $token = auth()->guard("api")->attempt($credentials);
+        return $this->response($token);
     }
 
     /**
@@ -36,7 +39,7 @@ class AuthController extends Controller
         if (! $token = auth()->guard("api")->attempt($credentials)) {
             return response()->json(null, 401);
         }
-        return response()->json($token);
+        return $this->response($token);
     }
 
     /**
@@ -57,8 +60,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
-        return response()->json(null,200);
+        return $this->response([]);
     }
 
     /**
@@ -68,22 +70,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->response(auth()->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
-    }
 }

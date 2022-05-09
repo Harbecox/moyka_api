@@ -27,8 +27,8 @@ class RegisterRequest extends APIRequest
     {
         return [
             "name" => "required",
-            "email" => Rule::unique("users"),
-            "password" => "required",
+            "email" => ["email",Rule::unique("users")],
+            "password" => "required | min:8",
         ];
     }
 }
