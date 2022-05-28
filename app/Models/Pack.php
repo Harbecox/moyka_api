@@ -15,14 +15,14 @@ class Pack extends Model
         "price",
     ];
 
-    function categories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    function categories()
     {
         return $this->hasMany(PackToCategory::class);
     }
 
-    function companies(): \Illuminate\Database\Eloquent\Relations\HasMany
+    function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(PackToCompany::class);
+        return $this->belongsToMany(Company::class);
     }
 
     function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany

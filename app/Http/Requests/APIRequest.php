@@ -17,7 +17,6 @@ class APIRequest extends FormRequest
         $ex = new ValidationException($validator);
         $errors = $ex->errors();
 //        $message = $ex->getMessage();
-
         throw new HttpResponseException(
             response()->json(["data" => [],"errors" => $errors],JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );

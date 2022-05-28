@@ -14,6 +14,8 @@ class Company extends Model
         "phone",
         "lat",
         "lng",
+        "user_id",
+        "qr"
     ];
 
     function categories(): \Illuminate\Database\Eloquent\Relations\HasMany

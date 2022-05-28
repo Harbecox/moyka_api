@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\JsonResponseMiddleware;
+use App\Http\Middleware\WebGuardMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -36,6 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            WebGuardMiddleware::class,
         ],
 
         'api' => [
@@ -64,5 +67,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\Cors::class,
+        'json_response' => JsonResponseMiddleware::class,
+        'guard.web' => WebGuardMiddleware::class
     ];
 }

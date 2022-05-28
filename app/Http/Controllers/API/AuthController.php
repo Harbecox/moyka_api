@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\RegisterRequest;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -25,7 +26,7 @@ class AuthController extends Controller
         User::create($request->validated());
         $credentials = request(['email', 'password']);
         $token = auth()->guard("api")->attempt($credentials);
-        return $this->response($token);
+        return $this->response(['token' => $token]);
     }
 
     /**
@@ -37,9 +38,12 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
         if (! $token = auth()->guard("api")->attempt($credentials)) {
-            return response()->json(null, 401);
+            return $this->response([],401);
         }
-        return $this->response($token);
+        $data['token'] = $token;
+        $data['user'] = \Auth::user();
+        $data['company'] = Company::query()->where("user_id",$data['user']->id)->first();
+        return $this->response($data);
     }
 
     /**
@@ -70,7 +74,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->response(auth()->refresh());
+        return $this->response(['token' => auth()->refresh()]);
     }
 
 }

@@ -47,7 +47,8 @@ class User extends Authenticatable implements JWTSubject
 
     const ROLE_ADMIN = "admin";
     const ROLE_USER = "user";
-    const ROLES = [self::ROLE_USER,self::ROLE_ADMIN];
+    const ROLE_COMPANY = "company";
+    const ROLES = [self::ROLE_USER,self::ROLE_ADMIN,self::ROLE_COMPANY];
 
     function setPasswordAttribute($password){
         $this->attributes['password'] = Hash::make($password);
@@ -67,5 +68,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function isSubscripte($pack_id){
+        return $this->subscriptions()->where("pack_id",$pack_id)->exists();
     }
 }

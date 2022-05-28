@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger("pack_id")->index();
             $table->foreign('pack_id')->references('id')->on('packs');
-            $table->integer("count");
+            $table->integer("count")->nullable();
+            $table->integer("used")->nullable();
+            $table->integer("price")->nullable();
             $table->timestamps();
         });
     }

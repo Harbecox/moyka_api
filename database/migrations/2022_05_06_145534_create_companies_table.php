@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("phone");
-            $table->float("lat");
-            $table->float("lng");
+            $table->float("lat",12,10);
+            $table->float("lng",12,10);
+            $table->unsignedBigInteger("user_id")->index();
+            $table->string("qr")->nullable();
             $table->timestamps();
         });
     }

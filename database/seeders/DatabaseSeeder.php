@@ -16,13 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            "name" => "Admin",
-            "email" => "admin@gmail.com",
-            "password" => "admin",
-            "role" => User::ROLE_ADMIN
-        ]);
-
         Category::create(["title" => "Car washing" ]);
+
+        $this->call(UserSeeder::class);
+        $this->call(ComppanySeeder::class);
+        $this->call(PackSeeder::class);
+        $this->call(SubscriptionSeeder::class);
     }
 }
