@@ -73,4 +73,8 @@ class User extends Authenticatable implements JWTSubject
     public function isSubscripte($pack_id){
         return $this->subscriptions()->where("pack_id",$pack_id)->exists();
     }
+
+    public function companies(){
+        return $this->hasMany(Company::class,"user_id",'id');
+    }
 }

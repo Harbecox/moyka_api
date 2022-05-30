@@ -16,7 +16,7 @@ class ComppanySeeder extends Seeder
      */
     public function run()
     {
-        $companies = Company::factory(200)->create();
+        $companies = Company::factory(50)->create();
         $categories = Category::all();
 
         foreach ($companies as $company){

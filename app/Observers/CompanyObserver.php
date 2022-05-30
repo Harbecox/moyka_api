@@ -18,7 +18,7 @@ class CompanyObserver
     {
         $path = 'qrs/'.$company->id.'.png';
         QrCode::size(500)->format('png')->generate($company->id, public_path($path));
-        $company->qr = url('qrs/'.$company->id.'.png');
+        $company->qr = 'qrs/'.$company->id.'.png';
         $company->save();
     }
 

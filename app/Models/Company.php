@@ -22,4 +22,8 @@ class Company extends Model
     {
         return $this->hasMany(CompanyToCategory::class);
     }
+
+    function getQrAttribute($value){
+        return url($value);
+    }
 }

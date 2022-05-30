@@ -31,6 +31,7 @@ Route::middleware(['api','cors','json_response'])->group(function () {
             Route::get("/",[\App\Http\Controllers\API\SubscriptionController::class,"index"]);
             Route::get("/{id}",[\App\Http\Controllers\API\SubscriptionController::class,"show"]);
             Route::post("/",[\App\Http\Controllers\API\SubscriptionController::class,"create"]);
+            Route::put("/",[\App\Http\Controllers\API\SubscriptionController::class,"use_"]);
         });
     });
 
