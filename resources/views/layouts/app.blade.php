@@ -216,6 +216,12 @@
                             <p>Users</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route("admin.subscription.index") }}" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <p>Subscriptions</p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

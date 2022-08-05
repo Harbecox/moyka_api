@@ -32,10 +32,11 @@ class UserController extends Controller
             ->with("success",'Company "'.$user->name.'" created!');
     }
 
-
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $data['user'] = $user;
+        $data['subscriptions'] = $user->subscriptions()->with("pack")->get();
+        return view("dashboard.user.show",$data);
     }
 
 

@@ -9,4 +9,5 @@ Route::prefix("admin")->middleware(["guard.web","auth"])->as("admin.")->group(fu
     Route::resource("company",\App\Http\Controllers\Admin\CompanyController::class);
     Route::resource("pack",\App\Http\Controllers\Admin\PackController::class);
     Route::resource("user",\App\Http\Controllers\Admin\UserController::class);
+    Route::resource("subscription",\App\Http\Controllers\Admin\SubscriptionController::class);
 });

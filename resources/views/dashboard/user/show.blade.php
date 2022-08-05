@@ -1,50 +1,62 @@
 @extends("layouts.app")
 
-@section("page_title") {{ $company->name }} @endsection
+@section("page_title") {{ $user->name }} @endsection
 
 @section("content")
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=03cea9f4-4c24-4f7b-ba2e-67c59b5477d8&lang=ru_RU" type="text/javascript"></script>
+    <div class="container">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Register at</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->role }}</td>
+                        <td>{{ $user->created_at }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-
-    <div id="map" style="height: 400px"></div>
-
-    <script>
-        if (document.getElementById("map")) {
-            ymaps.ready(init);
-
-            function init() {
-                //var squareLayout = ymaps.templateLayoutFactory.createClass('<div class="marker_container"><span class="marker_label">380000 ₽</span></div>');
-                var myMap = new ymaps.Map("map", {
-                        center: [{{ $company->lat }},{{ $company->lng }}],
-                        zoom: 10
-                    }, {
-                        searchControlProvider: 'yandex#search'
-                    }),
-
-
-                    myGeoObject = new ymaps.GeoObject({
-                        // Описание геометрии.
-                        geometry: {
-                            type: "Point",
-                            coordinates: [{{ $company->lat }},{{ $company->lng }}]
-                        },
-                    }, {
-                        //iconLayout: squareLayout,
-                        iconShape: {
-                            type: 'Rectangle',
-                            // Прямоугольник описывается в виде двух точек - верхней левой и нижней правой.
-                            coordinates: [
-                                [-25, -25], [25, 25]
-                            ]
-                        },
-                        draggable: false,
-                    });
-
-                myMap.geoObjects
-                    .add(myGeoObject)
-
-            }
-
-        }
-    </script>
+        <h4 class="mt-5">Subscraptions</h4>
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Count</th>
+                        <th>Used</th>
+                        <th>Price</th>
+                        <th>Pack</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($subscriptions as $subscription)
+                        <tr>
+                            <td>{{ $subscription->id }}</td>
+                            <td>{{ $subscription->created_at }}</td>
+                            <td>{{ $subscription->count }}</td>
+                            <td>{{ $subscription->used }}</td>
+                            <td>{{ $subscription->price }}</td>
+                            <td><a href="{{ route("admin.pack.show",$subscription->pack_id) }}">{{ $subscription->pack->name }}</a></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection

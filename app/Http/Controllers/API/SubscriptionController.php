@@ -32,7 +32,6 @@ class SubscriptionController extends Controller
     }
 
     function use_(Request $request){
-        Log::info(json_encode($request->toArray()));
         $company_id = $request->get("company_id");
         foreach (\Auth::user()->subscriptions as $subscription){
             if($subscription->pack->companies->where("id",$company_id)->count() > 0){

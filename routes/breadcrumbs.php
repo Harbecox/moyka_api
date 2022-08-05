@@ -65,5 +65,12 @@ Breadcrumbs::for('admin.user.create', function (BreadcrumbTrail $trail): void {
     $trail->push('User create', "");
 });
 
+Breadcrumbs::for('admin.user.show', function (BreadcrumbTrail $trail): void {
+    $trail->parent('admin.user.index');
+    $trail->push('User show', "");
+});
 
-
+Breadcrumbs::for('admin.subscription.index', function (BreadcrumbTrail $trail): void {
+    $trail->parent('admin.dashboard');
+    $trail->push('Pack', route('admin.subscription.index'));
+});
