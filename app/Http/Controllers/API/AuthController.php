@@ -26,7 +26,7 @@ class AuthController extends Controller
         User::create($request->validated());
         $credentials = request(['email', 'password']);
         $token = auth()->guard("api")->attempt($credentials);
-        return $this->response(['token' => $token]);
+        return $this->response(['token' => $token,'user' => \Auth::user()]);
     }
 
     /**
